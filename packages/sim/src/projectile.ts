@@ -228,7 +228,7 @@ function stepBurrowing(s: MatchState, p: Projectile): void {
   const hit = nearestPlayerHit(s, p.x, p.y, p.x, p.y);
   if (hit !== null) {
     applyEffects(s, p, m.weapon, m.effect.onImpactPlayer);
-    if (p.active) p.active = false;
+    if (p.active && !fireTrigger(s, p, TRIGGER_INDEX.impactPlayer)) p.active = false;
     return;
   }
 
@@ -240,7 +240,7 @@ function stepBurrowing(s: MatchState, p: Projectile): void {
   if (p.budget > 0) p.budget--;
   if (p.budget === 0) {
     applyEffects(s, p, m.weapon, m.effect.onEnd);
-    if (p.active) p.active = false;
+    if (p.active && !fireTrigger(s, p, TRIGGER_INDEX.budgetEnd)) p.active = false;
   }
 }
 
@@ -305,14 +305,14 @@ function stepRolling(s: MatchState, p: Projectile): void {
   const hit = nearestPlayerHit(s, p.x, p.y, p.x, p.y);
   if (hit !== null) {
     applyEffects(s, p, m.weapon, m.effect.onImpactPlayer);
-    if (p.active) p.active = false;
+    if (p.active && !fireTrigger(s, p, TRIGGER_INDEX.impactPlayer)) p.active = false;
     return;
   }
 
   if (p.budget > 0) p.budget--;
   if (p.budget === 0) {
     applyEffects(s, p, m.weapon, m.effect.onEnd);
-    if (p.active) p.active = false;
+    if (p.active && !fireTrigger(s, p, TRIGGER_INDEX.budgetEnd)) p.active = false;
   }
 }
 

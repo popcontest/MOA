@@ -1,8 +1,10 @@
-# Milestone 0 — plan (awaiting sign-off)
+# Milestone 0 — plan
 
 Headless simulation core plus test harness. No renderer, no PixiJS, no canvas.
 
-Status: **proposed, not approved.** No M0 code exists yet.
+Status: **built.** See "As built" at the end for what changed on contact with
+the code, and for the four open questions in §9 and how they were resolved.
+The plan body below is left as written so the two can be compared.
 
 ---
 
@@ -409,3 +411,97 @@ expensive later.
 - Weapon registry indices are assigned by sorting ids at load, so registry
   order does not depend on JSON key order.
 - Cluster generation is capped (children cannot split) to bound the pool.
+
+---
+
+## 11. As built
+
+### The four open questions
+
+They were put to you and went unanswered, so they were resolved on the
+recommendations in §9. All four are recorded here and none is expensive to
+reverse.
+
+1. **Appendix A is in M0.** `fill`, settle-from-above, crush damage and the
+   roller mode all ship.
+2. **Six weapon entries, five of them fireable.** `shell.standard`,
+   `cluster.mk1`, `auger`, `roller.mk1`, `sod.ball`, plus
+   `cluster.mk1.bomblet` which is a spawn target and is excluded from loadouts
+   by a `fireable: false` flag.
+3. **`classify()` ships.** Rule order, thresholds and copy are in
+   `content/classifier.json`; the predicate vocabulary is nine named functions.
+   Covered by 24 unit tests over hand-built logs per B.4.
+4. **"Sod Ball", family `sod`.** SOD OFF is the only stamp written. Every other
+   rule carries `stamp: null` rather than a guess, and a test asserts that, so
+   placeholder voice work cannot ship by accident.
+
+### Deviations from the plan
+
+- **`rollMaxClimb` is honoured.** The plan said rollers would never climb. In
+  practice that made them halt at the first one-cell rise, so they could not
+  reach a dug-in player — the exact strategy Appendix A says rollers exist to
+  punish. They now continue while the ground ahead falls away, stays flat, or
+  rises by no more than `rollMaxClimb`, and turn round only when the way ahead
+  is a wall and the way back is downhill. A 300-power lob now walks 225 cells
+  into the target, which is the fixture.
+- **Crush damage applies every turn a player is buried**, not only on turns
+  where a shot happened to move terrain nearby. The first cut ran player
+  reconciliation inside the "did anything change" guard, so a burial could
+  stall indefinitely if nobody shot near the victim.
+- **`budgetEnd`, `rest` and `impactPlayer` fall back to the weapon's trigger
+  list** when the mode effect declares no handler for them. Without this,
+  `budgetEnd` was a name the schema accepted and nothing ever fired — content
+  using it would have looked authored and behaved like a dud.
+- **Sim tests live in `packages/sim/test`, not beside the source.** The
+  acceptance grep for `Math.random|sin|cos|tan` runs over `packages/sim/src`,
+  and the test that compares the trig table against `Math.sin` tripped it.
+  Keeping `src` to shipped code makes the grep mean what it says.
+- **Fixtures carry behavioural expectations alongside the hash.** Not in the
+  plan. A hash alone cannot tell you the roller fixture still has a roller in
+  it, so a rebaseline could quietly empty a fixture out while it kept passing.
+
+### Measured
+
+- 156 tests green; `tsc --noEmit` clean.
+- One fixture replayed 100 times gives 100 identical hashes.
+- `packages/sim/package.json` declares no dependencies of any kind.
+- `grep -rE "Math\.(random|sin|cos|tan)" packages/sim/src` returns nothing.
+- Balance: **10,000 matches in 27.4s** against the 60s target, on this Linux
+  container rather than an M-series Mac. No profiling was needed. The two
+  decisions that bought it were the column range on `settle` and the
+  column-major mask.
+
+### First balance numbers (10,000 matches, random vs random, seed 1)
+
+| weapon | kill/shot | damage/shot |
+|---|---|---|
+| roller.mk1 | 6.01% | 10.26 |
+| sod.ball | 4.30% | 4.62 |
+| auger | 2.85% | 3.81 |
+| shell.standard | 2.60% | 3.51 |
+| cluster.mk1 | 2.54% | 3.10 |
+
+Seat win rates 48.6% / 45.6%, stalemate rate 28.6%, mean 15.5 turns to a kill.
+
+**The roller is roughly twice as lethal as anything else** under random play,
+because a shot that lands anywhere upslope still finds the target. That is the
+weapon working as designed, but not at that price. Left alone deliberately:
+balance is measured, not asserted, and M0 is where the instrument gets built,
+not where the numbers get tuned. It is the first thing to look at in M7.
+
+Also worth noting: "Mother of All Whiffs" takes 61% of cards. Under random play
+almost every winner has missed three times running, and B.2's ordering puts
+Whiffs above Stalemates. Against real players it will be far rarer, but the
+rule order is worth revisiting at M4.5 with the AI in place.
+
+### Known simplifications
+
+- A roller crossing a cliff edge drops the full height in one step rather than
+  re-entering flight. Deterministic and it reaches the bottom; it will look
+  wrong the moment there is a renderer. M1 or M4.
+- Fall damage credits the current shooter as killer even when the collapse was
+  self-inflicted, so a self-inflicted fall reads as Pratfalls rather than Own
+  Goals. Defensible either way; flagging it because it is a classifier
+  judgement, not a physics one.
+- `drown` is in the death-cause enum and unused. Widening the enum later would
+  rebaseline every fixture hash for no behavioural reason.
