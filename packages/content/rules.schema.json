@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://motherofall.invalid/schemas/rules.json",
+  "title": "Simulation rules",
+  "description": "Sim constants. These go into the state hash; changing one rebaselines replay fixtures on purpose. Feel values belong in tuning.json instead.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "maxHealth",
+    "gravity",
+    "windMax",
+    "powerScale",
+    "turnLimit",
+    "playerRadius",
+    "playerHeight",
+    "muzzleOffset",
+    "fallDamageThreshold",
+    "fallDamagePerCell",
+    "crushDamagePerTurn",
+    "maxGeneration",
+    "maxProjectiles",
+    "rollMaxClimb",
+    "missDistance"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "maxHealth": { "type": "number", "exclusiveMinimum": 0 },
+    "gravity": { "type": "number", "exclusiveMinimum": 0 },
+    "windMax": { "type": "number", "minimum": 0 },
+    "powerScale": { "type": "number", "exclusiveMinimum": 0 },
+    "turnLimit": { "type": "integer", "minimum": 1 },
+    "playerRadius": { "type": "integer", "minimum": 1 },
+    "playerHeight": { "type": "integer", "minimum": 1 },
+    "muzzleOffset": { "type": "number", "minimum": 0 },
+    "fallDamageThreshold": { "type": "number", "minimum": 0 },
+    "fallDamagePerCell": { "type": "number", "minimum": 0 },
+    "crushDamagePerTurn": { "type": "number", "minimum": 0 },
+    "maxGeneration": { "type": "integer", "minimum": 1 },
+    "maxProjectiles": { "type": "integer", "minimum": 1 },
+    "rollMaxClimb": { "type": "integer", "minimum": 0 },
+    "missDistance": { "type": "number", "minimum": 0 }
+  }
+}

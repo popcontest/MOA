@@ -1,0 +1,73 @@
+{
+  "$schema": "./classifier.schema.json",
+
+  "_note": "Ordered. First match wins. Order, thresholds and copy are data so they can be tuned without touching sim code; only the predicate vocabulary is code. Stamp copy beyond SOD OFF is pending voice direction and is deliberately null rather than guessed.",
+
+  "prefix": "Mother of All ",
+
+  "rules": [
+    {
+      "id": "burials",
+      "predicate": "deathByBurial",
+      "params": {},
+      "headline": "Burials",
+      "stamp": "SOD OFF"
+    },
+    {
+      "id": "comebacks",
+      "predicate": "winnerHealthDippedBelow",
+      "params": { "fraction": 0.1 },
+      "headline": "Comebacks",
+      "stamp": null
+    },
+    {
+      "id": "ownGoals",
+      "predicate": "deathBySelf",
+      "params": {},
+      "headline": "Own Goals",
+      "stamp": null
+    },
+    {
+      "id": "whiffs",
+      "predicate": "winnerConsecutiveMisses",
+      "params": { "count": 3, "distance": 40 },
+      "headline": "Whiffs",
+      "stamp": null
+    },
+    {
+      "id": "longWalks",
+      "predicate": "killByRollOver",
+      "params": { "cells": 120 },
+      "headline": "Long Walks",
+      "stamp": null
+    },
+    {
+      "id": "pratfalls",
+      "predicate": "killByFall",
+      "params": {},
+      "headline": "Pratfalls",
+      "stamp": null
+    },
+    {
+      "id": "stalemates",
+      "predicate": "outcomeReason",
+      "params": { "reason": "turnLimit" },
+      "headline": "Stalemates",
+      "stamp": null
+    },
+    {
+      "id": "beatings",
+      "predicate": "winnerUndamaged",
+      "params": {},
+      "headline": "Beatings",
+      "stamp": null
+    },
+    {
+      "id": "games",
+      "predicate": "always",
+      "params": {},
+      "headline": "Games",
+      "stamp": null
+    }
+  ]
+}

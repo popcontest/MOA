@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://motherofall.invalid/schemas/classifier.json",
+  "title": "Title-completion classifier",
+  "description": "Appendix B.2. Ordered; first match wins. The final rule must use the always predicate so the fallback headline is reachable.",
+  "type": "object",
+  "required": ["prefix", "rules"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "_note": { "type": "string" },
+    "prefix": { "type": "string" },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "predicate", "headline", "stamp"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "predicate": {
+            "enum": [
+              "deathByBurial",
+              "deathBySelf",
+              "killByFall",
+              "killByRollOver",
+              "winnerHealthDippedBelow",
+              "winnerConsecutiveMisses",
+              "winnerUndamaged",
+              "outcomeReason",
+              "always"
+            ]
+          },
+          "params": { "type": "object" },
+          "headline": { "type": "string", "minLength": 1 },
+          "stamp": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

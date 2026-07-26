@@ -1,0 +1,22 @@
+{
+  "$schema": "./rules.schema.json",
+
+  "maxHealth": 100,
+  "gravity": 300,
+  "windMax": 40,
+  "powerScale": 0.5,
+  "turnLimit": 30,
+
+  "playerRadius": 3,
+  "playerHeight": 7,
+  "muzzleOffset": 9,
+
+  "fallDamageThreshold": 12,
+  "fallDamagePerCell": 1.5,
+  "crushDamagePerTurn": 25,
+
+  "maxGeneration": 2,
+  "maxProjectiles": 64,
+  "rollMaxClimb": 1,
+  "missDistance": 40
+}

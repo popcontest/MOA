@@ -1,0 +1,14 @@
+{
+  "name": "@moa/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./weapons.json": "./weapons.json",
+    "./rules.json": "./rules.json",
+    "./arenas.json": "./arenas.json",
+    "./tuning.json": "./tuning.json",
+    "./classifier.json": "./classifier.json"
+  }
+}

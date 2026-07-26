@@ -1,0 +1,37 @@
+{
+  "$schema": "./tuning.schema.json",
+
+  "_note": "Presentation only. packages/sim has no import path to this file and a test enforces that. A live slider that reached the sim would silently invalidate every replay hash in the project.",
+
+  "shake": {
+    "impactMagnitude": 8,
+    "killMagnitude": 18,
+    "decayPerSecond": 6.5
+  },
+  "hitStop": {
+    "impactSeconds": 0.06,
+    "killSeconds": 0.18
+  },
+  "slowMo": {
+    "killTimeScale": 0.25,
+    "killSeconds": 0.9,
+    "rampSeconds": 0.2
+  },
+  "particles": {
+    "blastCount": 48,
+    "debrisCount": 24,
+    "lifetimeSeconds": 1.1,
+    "gravity": 420
+  },
+  "camera": {
+    "followLag": 0.12,
+    "lookaheadSeconds": 0.35,
+    "settleSeconds": 0.6,
+    "zoomMin": 0.7,
+    "zoomMax": 1.4
+  },
+  "trail": {
+    "lengthSeconds": 1.5,
+    "widthPx": 2
+  }
+}

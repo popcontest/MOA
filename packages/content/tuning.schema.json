@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://motherofall.invalid/schemas/tuning.json",
+  "title": "Feel tuning",
+  "description": "Presentation only. Nothing here may reach packages/sim; a live slider that did would silently invalidate every replay hash in the project. Bound to dev-overlay sliders in M3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["shake", "hitStop", "slowMo", "particles", "camera", "trail"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "_note": { "type": "string" },
+    "shake": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "hitStop": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "slowMo": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "particles": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "trail": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    }
+  }
+}

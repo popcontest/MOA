@@ -1,0 +1,172 @@
+{
+  "$schema": "./weapons.schema.json",
+  "weapons": [
+    {
+      "id": "shell.standard",
+      "name": "Standard Shell",
+      "family": "shell",
+      "fireable": true,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "impactPlayer", "effects": ["boom"] },
+        { "on": "impactTerrain", "effects": ["boom"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "boom": {
+          "kind": "blast",
+          "maxDamage": 50,
+          "blastRadius": 22,
+          "carveRadius": 20,
+          "fillRadius": 0
+        },
+        "gone": { "kind": "expire" }
+      }
+    },
+
+    {
+      "id": "cluster.mk1",
+      "name": "Cluster Mk I",
+      "family": "cluster",
+      "fireable": true,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "apex", "effects": ["split"] },
+        { "on": "impactPlayer", "effects": ["dud"] },
+        { "on": "impactTerrain", "effects": ["dud"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "split": {
+          "kind": "spawn",
+          "childId": "cluster.mk1.bomblet",
+          "count": 5,
+          "spreadDeg": 44,
+          "speedScale": 0.55,
+          "inheritVelocity": true,
+          "consumeParent": true
+        },
+        "dud": {
+          "kind": "blast",
+          "maxDamage": 14,
+          "blastRadius": 12,
+          "carveRadius": 10,
+          "fillRadius": 0
+        },
+        "gone": { "kind": "expire" }
+      }
+    },
+
+    {
+      "id": "cluster.mk1.bomblet",
+      "name": "Bomblet",
+      "family": "cluster",
+      "fireable": false,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "impactPlayer", "effects": ["boom"] },
+        { "on": "impactTerrain", "effects": ["boom"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "boom": {
+          "kind": "blast",
+          "maxDamage": 20,
+          "blastRadius": 13,
+          "carveRadius": 11,
+          "fillRadius": 0
+        },
+        "gone": { "kind": "expire" }
+      }
+    },
+
+    {
+      "id": "auger",
+      "name": "Auger",
+      "family": "digger",
+      "fireable": true,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "impactPlayer", "effects": ["boom"] },
+        { "on": "impactTerrain", "effects": ["dig"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "dig": {
+          "kind": "mode",
+          "mode": "burrow",
+          "speed": 55,
+          "budgetSteps": 60,
+          "carveRadius": 4,
+          "onEnd": ["boom"],
+          "onRest": [],
+          "onImpactPlayer": ["boom"]
+        },
+        "boom": {
+          "kind": "blast",
+          "maxDamage": 62,
+          "blastRadius": 26,
+          "carveRadius": 24,
+          "fillRadius": 0
+        },
+        "gone": { "kind": "expire" }
+      }
+    },
+
+    {
+      "id": "roller.mk1",
+      "name": "Roller Mk I",
+      "family": "roller",
+      "fireable": true,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "impactPlayer", "effects": ["boom"] },
+        { "on": "impactTerrain", "effects": ["roll"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "roll": {
+          "kind": "mode",
+          "mode": "roll",
+          "speed": 110,
+          "budgetSteps": 600,
+          "carveRadius": 0,
+          "onEnd": ["boom"],
+          "onRest": ["boom"],
+          "onImpactPlayer": ["boom"]
+        },
+        "boom": {
+          "kind": "blast",
+          "maxDamage": 45,
+          "blastRadius": 20,
+          "carveRadius": 18,
+          "fillRadius": 0
+        },
+        "gone": { "kind": "expire" }
+      }
+    },
+
+    {
+      "id": "sod.ball",
+      "name": "Sod Ball",
+      "family": "sod",
+      "fireable": true,
+      "spawn": { "speedScale": 1, "gravityScale": 1, "windScale": 1, "fuse": -1 },
+      "triggers": [
+        { "on": "impactPlayer", "effects": ["dump"] },
+        { "on": "impactTerrain", "effects": ["dump"] },
+        { "on": "leaveArena", "effects": ["gone"] }
+      ],
+      "effects": {
+        "dump": {
+          "kind": "blast",
+          "maxDamage": 0,
+          "blastRadius": 0,
+          "carveRadius": 0,
+          "fillRadius": 28
+        },
+        "gone": { "kind": "expire" }
+      }
+    }
+  ]
+}

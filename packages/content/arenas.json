@@ -1,0 +1,32 @@
+{
+  "$schema": "./arenas.schema.json",
+  "arenas": [
+    {
+      "id": "rolling",
+      "name": "Rolling Ground",
+      "width": 1024,
+      "height": 512,
+      "roughness": 0.55,
+      "minGround": 220,
+      "maxGround": 400
+    },
+    {
+      "id": "broken",
+      "name": "Broken Ground",
+      "width": 1024,
+      "height": 512,
+      "roughness": 0.85,
+      "minGround": 160,
+      "maxGround": 430
+    },
+    {
+      "id": "flats",
+      "name": "The Flats",
+      "width": 1024,
+      "height": 512,
+      "roughness": 0.18,
+      "minGround": 340,
+      "maxGround": 400
+    }
+  ]
+}
