@@ -11,6 +11,7 @@ import {
 } from './types';
 import { makeRng, nextFloat, nextRange } from './rng';
 import { generateTerrain, settle, topAt } from './terrain';
+import { markDirty } from './effects';
 import { makeProjectile, spawnProjectile, stepProjectile } from './projectile';
 import { applyDamage } from './damage';
 import { cosDegrees, sinDegrees } from './trig';
@@ -78,6 +79,8 @@ export function createMatch(seed: number, config: MatchConfig): MatchState {
     outcome: null,
     turn: makeAccumulator(n),
     stepOrder: new Int32Array(rules.maxProjectiles),
+    tickDirtyMinX: terrain.width,
+    tickDirtyMaxX: -1,
   };
 }
 
@@ -171,7 +174,10 @@ function resolveTerrain(s: MatchState): void {
   if (acc.dirtyMaxX >= acc.dirtyMinX) {
     // Widen by one column: a carve at the edge of the range can leave the
     // neighbouring column's support looking intact when it is not.
-    settle(s.terrain, acc.dirtyMinX - 1, acc.dirtyMaxX + 1);
+    const lo = acc.dirtyMinX - 1;
+    const hi = acc.dirtyMaxX + 1;
+    settle(s.terrain, lo, hi);
+    markDirty(s, Math.max(0, lo), Math.min(s.terrain.width - 1, hi));
   }
 
   // Player reconciliation runs every turn even when no terrain moved, because
@@ -277,6 +283,8 @@ function concludeOrAdvance(s: MatchState): void {
 export function step(s: MatchState): void {
   if (s.phase !== PHASE_RESOLVING) return;
   s.tick++;
+  s.tickDirtyMinX = s.terrain.width;
+  s.tickDirtyMaxX = -1;
 
   let count = 0;
   for (let i = 0; i < s.projectiles.length; i++) {

@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": []
+  },
+  "include": [
+    "packages/render/**/*.ts",
+    "packages/ui/**/*.ts",
+    "packages/app/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "packages/render/test"
+  ]
+}

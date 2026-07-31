@@ -3,8 +3,22 @@
   "compilerOptions": {
     "noEmit": true,
     "declaration": false,
-    "types": ["node"]
+    "lib": [
+      "ES2022"
+    ],
+    "types": [
+      "node"
+    ]
   },
-  "include": ["packages/**/*.ts", "tools/**/*.ts", "vitest.config.ts"],
-  "exclude": ["node_modules", "**/dist"]
+  "include": [
+    "packages/sim/**/*.ts",
+    "packages/content/**/*.ts",
+    "packages/render/test/**/*.ts",
+    "tools/**/*.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist"
+  ]
 }

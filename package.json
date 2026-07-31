@@ -10,15 +10,20 @@
     "codegen": "tsx tools/codegen/src/trig.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --build --force",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.client.json",
     "balance": "tsx tools/balance/src/cli.ts",
-    "replay": "tsx tools/replay/src/cli.ts"
+    "replay": "tsx tools/replay/src/cli.ts",
+    "dev": "vite --config packages/app/vite.config.ts",
+    "build": "vite build --config packages/app/vite.config.ts",
+    "shots": "tsx tools/shotgun/src/cli.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
     "ajv": "^8.17.1",
+    "playwright": "^1.62.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
+    "vite": "^5.4.21",
     "vitest": "^2.1.8"
   }
 }

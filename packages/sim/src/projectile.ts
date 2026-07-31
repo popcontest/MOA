@@ -8,7 +8,7 @@ import {
   type Projectile,
 } from './types';
 import { carve, raycast, topAt } from './terrain';
-import { applyEffects, fireTrigger } from './effects';
+import { applyEffects, fireTrigger, markDirty } from './effects';
 import { weaponAt } from './weapons';
 
 const H = STEP_SECONDS;
@@ -219,10 +219,7 @@ function stepBurrowing(s: MatchState, p: Projectile): void {
 
   if (m.effect.carveRadius > 0) {
     const r = carve(s.terrain, Math.round(p.x), Math.round(p.y), m.effect.carveRadius);
-    if (r.maxX >= r.minX) {
-      if (r.minX < s.turn.dirtyMinX) s.turn.dirtyMinX = r.minX;
-      if (r.maxX > s.turn.dirtyMaxX) s.turn.dirtyMaxX = r.maxX;
-    }
+    markDirty(s, r.minX, r.maxX);
   }
 
   const hit = nearestPlayerHit(s, p.x, p.y, p.x, p.y);

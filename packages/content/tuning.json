@@ -3,6 +3,53 @@
 
   "_note": "Presentation only. packages/sim has no import path to this file and a test enforces that. A live slider that reached the sim would silently invalidate every replay hash in the project.",
 
+  "palette": {
+    "arenas": {
+      "rolling": {
+        "skyTop": "#A259BF",
+        "skyHorizon": "#FFB733",
+        "crust": "#F2E1C9",
+        "soilSurface": "#A67B54",
+        "soilDeep": "#7E512F",
+        "soilFloor": "#5D3A1F"
+      },
+      "broken": {
+        "skyTop": "#899499",
+        "skyHorizon": "#BCC6CC",
+        "crust": "#D4E1E6",
+        "soilSurface": "#607D8B",
+        "soilDeep": "#455A64",
+        "soilFloor": "#263238"
+      },
+      "flats": {
+        "skyTop": "#F5F6F7",
+        "skyHorizon": "#FFFFFF",
+        "crust": "#E8E1CD",
+        "soilSurface": "#BD9764",
+        "soilDeep": "#8E714C",
+        "soilFloor": "#604A2F"
+      }
+    },
+    "players": ["#1FB6C9", "#E8468C", "#A8D219", "#F2EDE4"],
+    "playerOutline": "#1A1208",
+    "projectile": "#E8DCC0",
+    "projectileOutline": "#1A1208",
+    "trail": "#FFBF00",
+    "hudInk": "#F2E1C9",
+    "hudPanel": "#1A1208"
+  },
+
+  "terrain": {
+    "crustCells": 4,
+    "strataBands": 8
+  },
+
+  "trailStyle": {
+    "ticksPerDot": 5,
+    "maxDots": 96,
+    "dotRadiusPx": 2.5
+  },
+
   "shake": {
     "impactMagnitude": 8,
     "killMagnitude": 18,
@@ -27,11 +74,9 @@
     "followLag": 0.12,
     "lookaheadSeconds": 0.35,
     "settleSeconds": 0.6,
-    "zoomMin": 0.7,
-    "zoomMax": 1.4
-  },
-  "trail": {
-    "lengthSeconds": 1.5,
-    "widthPx": 2
+    "viewCells": 190,
+    "groundBias": 0.45,
+    "zoomMin": 0.55,
+    "zoomMax": 1.6
   }
 }

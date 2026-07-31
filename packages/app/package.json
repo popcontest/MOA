@@ -1,0 +1,10 @@
+{
+  "name": "@moa/app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@moa/sim": "*", "@moa/content": "*", "@moa/render": "*",
+    "@moa/ui": "*", "@moa/replay": "*", "pixi.js": "^8.6.6"
+  }
+}

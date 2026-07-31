@@ -5,33 +5,133 @@
   "description": "Presentation only. Nothing here may reach packages/sim; a live slider that did would silently invalidate every replay hash in the project. Bound to dev-overlay sliders in M3.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["shake", "hitStop", "slowMo", "particles", "camera", "trail"],
-  "properties": {
-    "$schema": { "type": "string" },
-    "_note": { "type": "string" },
-    "shake": {
+  "required": [
+    "palette",
+    "terrain",
+    "trailStyle",
+    "shake",
+    "hitStop",
+    "slowMo",
+    "particles",
+    "camera"
+  ],
+  "definitions": {
+    "hex": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+    },
+    "arenaPalette": {
       "type": "object",
-      "additionalProperties": { "type": "number" }
+      "additionalProperties": false,
+      "required": [
+        "skyTop",
+        "skyHorizon",
+        "crust",
+        "soilSurface",
+        "soilDeep",
+        "soilFloor"
+      ],
+      "properties": {
+        "skyTop": {
+          "$ref": "#/definitions/hex"
+        },
+        "skyHorizon": {
+          "$ref": "#/definitions/hex"
+        },
+        "crust": {
+          "$ref": "#/definitions/hex"
+        },
+        "soilSurface": {
+          "$ref": "#/definitions/hex"
+        },
+        "soilDeep": {
+          "$ref": "#/definitions/hex"
+        },
+        "soilFloor": {
+          "$ref": "#/definitions/hex"
+        }
+      }
+    },
+    "numbers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_note": {
+      "type": "string"
+    },
+    "palette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arenas",
+        "players",
+        "playerOutline",
+        "projectile",
+        "trail"
+      ],
+      "properties": {
+        "arenas": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/definitions/arenaPalette"
+          }
+        },
+        "players": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/definitions/hex"
+          }
+        },
+        "playerOutline": {
+          "$ref": "#/definitions/hex"
+        },
+        "projectile": {
+          "$ref": "#/definitions/hex"
+        },
+        "projectileOutline": {
+          "$ref": "#/definitions/hex"
+        },
+        "trail": {
+          "$ref": "#/definitions/hex"
+        },
+        "hudInk": {
+          "$ref": "#/definitions/hex"
+        },
+        "hudPanel": {
+          "$ref": "#/definitions/hex"
+        }
+      }
+    },
+    "terrain": {
+      "$ref": "#/definitions/numbers"
+    },
+    "trailStyle": {
+      "$ref": "#/definitions/numbers"
+    },
+    "shake": {
+      "$ref": "#/definitions/numbers"
     },
     "hitStop": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
+      "$ref": "#/definitions/numbers"
     },
     "slowMo": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
+      "$ref": "#/definitions/numbers"
     },
     "particles": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
+      "$ref": "#/definitions/numbers"
     },
     "camera": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
-    },
-    "trail": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
+      "$ref": "#/definitions/numbers"
     }
   }
 }

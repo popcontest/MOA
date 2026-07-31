@@ -17,10 +17,14 @@ import { spawnProjectile } from './projectile';
  * behind "adding weapon #30 is a JSON edit".
  */
 
-function markDirty(s: MatchState, minX: number, maxX: number): void {
+export function markDirty(s: MatchState, minX: number, maxX: number): void {
   if (maxX < minX) return;
   if (minX < s.turn.dirtyMinX) s.turn.dirtyMinX = minX;
   if (maxX > s.turn.dirtyMaxX) s.turn.dirtyMaxX = maxX;
+  // Per-tick range as well, so a renderer can upload during flight rather than
+  // waiting for the turn to resolve. An auger carves for 60 consecutive ticks.
+  if (minX < s.tickDirtyMinX) s.tickDirtyMinX = minX;
+  if (maxX > s.tickDirtyMaxX) s.tickDirtyMaxX = maxX;
 }
 
 function recordImpactDistance(s: MatchState, cx: number, cy: number): void {

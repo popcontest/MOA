@@ -1,0 +1,8 @@
+{
+  "name": "@moa/render",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": { "@moa/sim": "*", "pixi.js": "^8.6.6" }
+}

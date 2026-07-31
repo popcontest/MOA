@@ -259,6 +259,15 @@ export type MatchState = {
    * in. Not hashed.
    */
   readonly stepOrder: Int32Array;
+  /**
+   * Terrain columns touched during the tick just stepped, so a renderer can
+   * upload only what changed. Reset at the top of every step. Empty when
+   * maxX < minX. Derived from hashed state and therefore not hashed itself —
+   * which also means the renderer cannot influence the simulation by reading
+   * it.
+   */
+  tickDirtyMinX: number;
+  tickDirtyMaxX: number;
 };
 
 export type TurnAccumulator = {

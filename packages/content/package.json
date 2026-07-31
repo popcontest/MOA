@@ -9,6 +9,7 @@
     "./rules.json": "./rules.json",
     "./arenas.json": "./arenas.json",
     "./tuning.json": "./tuning.json",
-    "./classifier.json": "./classifier.json"
+    "./classifier.json": "./classifier.json",
+    "./tuning": "./src/tuning.ts"
   }
 }
