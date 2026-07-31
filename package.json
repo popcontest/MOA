@@ -15,7 +15,8 @@
     "replay": "tsx tools/replay/src/cli.ts",
     "dev": "vite --config packages/app/vite.config.ts",
     "build": "vite build --config packages/app/vite.config.ts",
-    "shots": "tsx tools/shotgun/src/cli.ts"
+    "shots": "tsx tools/shotgun/src/cli.ts",
+    "artifact": "vite build --config packages/app/vite.config.ts && tsx tools/shotgun/src/artifact.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
